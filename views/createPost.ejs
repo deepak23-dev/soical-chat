@@ -1,0 +1,11 @@
+
+  <%-include('./boilerplate/head.ejs') %>
+<body>
+    <%-include('./boilerplate/navbar.ejs') %>
+    <form action="/<%= userInfo.id %>/post" method="post" enctype="multipart/form-data">
+        <input type="file" name="post" >
+        <textarea name="caption" placeholder="Share your thought...."></textarea>
+        <button>Post</button>
+    </form>
+</body>
+</html>

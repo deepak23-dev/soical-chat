@@ -1,0 +1,33 @@
+
+  <%-include('./boilerplate/head.ejs') %>
+
+<body>
+  <%-include('./boilerplate/navbar.ejs') %>
+    <h1>Posts of user's</h1>
+    <div class="main">
+    <% filterData.forEach(row => { %>
+  
+    <div class="card-h">
+      <i class="fa-solid fa-user"></i>
+    <span><%= row.users_table.name %></span>
+    
+    <img class="post-img" src="/uploads/<%= row.post_table.post %>" alt="post image">
+      <p class="date">
+    <%= new Date(row.post_table.createdAt).toLocaleString('en-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+     }) %>
+    </p>
+    <p class="caption"><%= row.post_table.caption %></p>
+  
+     <i type="button"  class="fa-regular fa-heart like" ></i>
+     <i type="button"  class="fa-regular fa-comment " ></i>
+
+  </div>
+ 
+<% }) %>
+</div>
+
+<script src="home.js"></script>
+</body>
+</html>
