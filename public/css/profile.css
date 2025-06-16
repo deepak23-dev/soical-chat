@@ -7,8 +7,8 @@
     }
 
     body {
-      background-color: #fafafa;
-      padding: 20px;
+      background-color: rgb(254, 254, 250);
+     
     }
 
  
@@ -22,7 +22,8 @@
     .card-h
     {
       width: 250px;
-      height: 320px;
+      min-height: 379px;
+      max-height: fit-content;
       border: 2px solid black;
       padding:2px 20px 15px 20px;
       margin: 3px 2px;
@@ -30,9 +31,18 @@
     }
 
     img{
-      width: 190px;
-      height: 200px;
+       max-width: 190px;
+      max-height: 200px;
+      min-width: 190px;
+      min-height: 200px;
      text-align: center;
+    }
+
+    .update-img{
+      max-width: 100px;
+      max-height: 200px;
+      min-width: 100px;
+      min-height: 200px;
     }
 
   i{
@@ -40,6 +50,10 @@
     margin: 5px 0;
     cursor: pointer;
 
+  }
+
+  .like-count{
+   font-size: 13px;
   }
 
   .fa-user{

@@ -1,6 +1,22 @@
+
+
+.head{
+    background-color: brown;
+    padding: 5px 0;
+}
+
 .head-ul
 {
     display: flex;
     list-style: none;
     justify-content: space-around;
+   
+}
+
+.head a{
+     text-decoration: none;
+}
+
+.head li{
+     font-size: 1.2rem;
 }

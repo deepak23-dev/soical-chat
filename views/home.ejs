@@ -4,6 +4,7 @@
 <body>
   <%-include('./boilerplate/navbar.ejs') %>
     <h1>Posts of user's</h1>
+   
     <div class="main">
     <% filterData.forEach(row => { %>
   
@@ -13,15 +14,22 @@
     
     <img class="post-img" src="/uploads/<%= row.post_table.post %>" alt="post image">
       <p class="date">
-    <%= new Date(row.post_table.createdAt).toLocaleString('en-IN', {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-     }) %>
+  <%= new Date(row.post_table.createdAt).toLocaleString('en-IN', {
+  timeZone: 'Asia/Kolkata',
+  dateStyle: 'medium',
+  timeStyle: 'short'
+}) %>
     </p>
     <p class="caption"><%= row.post_table.caption %></p>
-  
-     <i type="button"  class="fa-regular fa-heart like" ></i>
+    <% if(userInfo.id===row.post_table.userId){ %>
+      <a href="/<%=row.post_table.id %>/update">update the post</a> <br>
+       <form action="/<%=row.post_table.id%>/update?_method=DELETE" method="POST" >
+        <button>delete</button>
+    </form>
+      <% }%>
+     <i type="button"  class="fa-regular fa-heart like" data-post-id="<%= row.post_table.id %>"></i>
      <i type="button"  class="fa-regular fa-comment " ></i>
+     <p class="like-count">Likes:<%= row.post_table.like %></p>
 
   </div>
  

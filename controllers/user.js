@@ -6,10 +6,11 @@ export const homePage=async(req,res)=>{
         let a=Math.floor(Math.random()*10)+1;
         // console.log("a",a);
         
-        // console.log(data);
+      
         
        const filterData= data.slice(a>=data.length?0:a,data.length);
        res.render("home.ejs",{filterData});
+        //  console.log(filterData);
         
     } catch (error) {
         console.log(error.message);

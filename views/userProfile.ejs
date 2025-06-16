@@ -1,43 +1,52 @@
-
-<%-include('./boilerplate/head.ejs') %>
+<%- include('./boilerplate/head.ejs') %>
 <body>
-<%-include('./boilerplate/navbar.ejs') %>
+<%- include('./boilerplate/navbar.ejs') %>
+
+<div class="container">
+
+  <!-- Profile Header -->
   <div class="profile-header">
     <div class="profile-image">
-      <img src="" >
+      <img src="<%= userInfo.profileImage || " " %>" alt="Profile Image">
     </div>
-    <div class="profile-info">
-      <div class="username">@<%=userInfo.name%></div>
-      <div class="bio">This is your bio. 🌟 Share your story here.</div>
-    </div>
-    <div>
-     <a href="/<%= userInfo.id %>/post">Create a Posts</a>
-
+    <div class="profile-details">
+      <div class="username">
+        <h2>@<%= userInfo.name %></h2>
+        <a href="/<%= userInfo.id %>/post" class="btn">Create a Post</a>
+      </div>
+      <ul class="profile-stats">
+        <li><strong><%= data.length %></strong> posts</li>
+        <li><strong>120</strong> followers</li>
+        <li><strong>180</strong> following</li>
+      </ul>
+      <div class="bio">
+        This is your bio. 🌟 Share your story here.
+      </div>
     </div>
   </div>
 
+  <!-- Highlights -->
   <div class="highlights">
     <div class="highlight">Story 1</div>
     <div class="highlight">Story 2</div>
     <div class="highlight">Story 3</div>
-    <div class="highlight">+</div>
+    <div class="highlight add">+</div>
   </div>
 
-
-  
-   <% if(data.length>0){%>
+  <!-- Posts Grid -->
+  <% if(data.length > 0){ %>
     <div class="post-grid">
-        <% for (const el of data) { %>
-    <img src="/uploads/<%= el.post %>" alt="Post">
+      <% for (const el of data) { %>
+        <div class="post-item">
+          <img src="/uploads/<%= el.post %>" alt="Post">
+        </div>
+      <% } %>
     </div>
-  <% }%>
-    <% } else{%>
-     <p>There is no post......</p>
-    <% }%>
-    <div>
-   
-</div>
+  <% } else { %>
+    <p class="no-posts">There are no posts yet...</p>
+  <% } %>
 
+</div>
 
 </body>
 </html>

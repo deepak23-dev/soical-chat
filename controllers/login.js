@@ -1,4 +1,4 @@
-import { genrateToken, getUserLogin } from "../services/auth.user.service.js";
+import { createSession, deletePreviousSeesion, genrateAccessToken, getUserLogin } from "../services/auth.user.service.js";
 import * as argon2 from "argon2";
 
 export const login=(req,res)=>{
@@ -16,7 +16,7 @@ export const postLogin=async(req,res)=>{
         }
                
               const userExists=await getUserLogin(email);
-            //   console.log(userExists);
+              // console.log(userExists);
               
               const comparePassowrd=await argon2.verify(userExists.password,password)
             //   console.log(comparePassowrd);
@@ -26,15 +26,30 @@ export const postLogin=async(req,res)=>{
         
               if(!comparePassowrd) return res.redirect("/login");
               
+               await deletePreviousSeesion(userExists.id);
 
-              const token=genrateToken({
+              const [session]=await createSession(userExists.id,{
+                ip:req.clientIp,
+                userAgent:req.headers["user-agent"]
+              })
+
+              // console.log(session);
+              
+              const token=genrateAccessToken({
                 name:userExists.name,
                 email:userExists.email,
-                id:userExists.id
+                id:userExists.id,
+                sessionId:session
             });
 
-              res.cookie("token",token);
+            const baseConfig={httpOnly:true,secure:true};
 
+              res.cookie("token",token,{
+                ...baseConfig
+              });
+              res.cookie("access_token",session,{
+                ...baseConfig
+              })
             //   res.cookie("isLoggedIn", true);
              res.redirect("/profile");
        
@@ -48,6 +63,9 @@ export const postLogin=async(req,res)=>{
 //* logout the user
 
 export const logoutUser=async(req,res)=>{
+   
+   res.clearCookie('access_token');
   res.clearCookie('token');
+  await deletePreviousSeesion(req.user.id)
  return res.redirect("/")
 }

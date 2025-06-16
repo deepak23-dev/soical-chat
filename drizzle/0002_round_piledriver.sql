@@ -1,0 +1,1 @@
+ALTER TABLE `post_table` MODIFY COLUMN `like` int DEFAULT 0;

@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="navbar.css">
-</head>
+  <%-include('./head.ejs') %>
 <body>
     <nav class="head">
         <ul class="head-ul">
@@ -13,11 +6,12 @@
                 <li>Home</li>
             </a>
         
-            <% if(userInfo) {%>
-            
-          <a href="/profile">
+              <a href="/profile">
                 <li>Profile</li>
             </a>
+            <% if(userInfo) {%>
+            
+        
             <a href="/logout">
                 <li>Logout</li>
             </a>

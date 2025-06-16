@@ -1,0 +1,14 @@
+  <%-include('./boilerplate/head.ejs') %>
+
+<body>
+  <%-include('./boilerplate/navbar.ejs') %>
+  <p>Previous post</p>
+ 
+   <img class="update-img" src="/uploads/<%=data.post%>" alt="post image" >
+    <form action="/<%=data.id %>/<%=data.post%>/update?_method=PUT" method="POST" enctype="multipart/form-data">
+        <input type="file"  name="post" required>
+        <textarea name="caption"  placeholder="Share your thought...." required><%=data.caption %></textarea>
+        <button>update</button>
+    </form>
+</body>
+</html>
