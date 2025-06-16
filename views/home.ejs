@@ -21,12 +21,12 @@
 }) %>
     </p>
     <p class="caption"><%= row.post_table.caption %></p>
-    <% if(userInfo.id===row.post_table.userId){ %>
+    <% if(userInfo && userInfo.id===row.post_table.userId){ %>
       <a href="/<%=row.post_table.id %>/update">update the post</a> <br>
        <form action="/<%=row.post_table.id%>/update?_method=DELETE" method="POST" >
         <button>delete</button>
     </form>
-      <% }%>
+      <% } %>
      <i type="button"  class="fa-regular fa-heart like" data-post-id="<%= row.post_table.id %>"></i>
      <i type="button"  class="fa-regular fa-comment " ></i>
      <p class="like-count">Likes:<%= row.post_table.like %></p>
