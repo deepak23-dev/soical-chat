@@ -1,6 +1,7 @@
 import express from 'express';
-import { deletePost, getPost, getPostForUpdate, postCreated, updateLikes, updatePost } from '../controllers/post-created.js';
+import { deletePost, getPost, getPostForUpdate, likesData, postCreated, updateLikes, updatePost } from '../controllers/post-created.js';
 import { singleUpload } from '../middlewares/multer.js';
+
 
 const router=express.Router();
 
@@ -17,5 +18,7 @@ router.route("/:id/update")
 router.put("/:id/:img/update",singleUpload,updatePost)
 
 router.post("/:id/like",updateLikes);
+
+router.get("/like",likesData)
 
 export default router;

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    <div >
+        <strong id="userId"><%= name.toUpperCase()  %></strong>
+    </div>
+  
+    <form id="form" method="POST">
+        <label for="input">msg</label>
+        <input type="text" name="message" id="input"><br><br>
+         <input type="text" name="reciverId" id="room" value="<%= room %>"  hidden>
+        <button>send</button>
+    </form>
+    <% msg.forEach(el=> {%>
+        <li><%=el.message  %></li>
+   <% }); %>
+    <ul id="msg">
+
+    </ul>
+</body>
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+<script>
+  const userId = "<%= user.id %>";  // Injected from controller
+  const name="<%=user.name  %>"
+</script>
+<script src="/frontsocket.js"></script>
+</html>

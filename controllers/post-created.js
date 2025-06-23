@@ -1,4 +1,4 @@
-import { createPost, deleteApost, getPostData, likedlt, likeUpdate, updatedPost } from "../services/auth.post.service.js";
+import { checkLike, createPost, deleteApost, getPostData, likedlt, likeUpdate, postlikedata, updatedPost } from "../services/auth.post.service.js";
 
 export const getPost=async(req,res)=>{
     try {
@@ -20,7 +20,7 @@ export const postCreated=async(req,res)=>{
                return res.status(400).send("Image is required.");
                 }
 
-        const [data]=await createPost({post:imagePath,caption,userId:req.user.id});
+        const [data]=await createPost({post:imagePath,caption:caption.trim(),userId:req.user.id});
         // console.log(data);
         
         res.redirect("/profile");
@@ -93,26 +93,51 @@ export const deletePost=async(req,res)=>{
 //*update likes
 
 export const updateLikes=async(req,res)=>{
-    const{id}=req.params;
-    let {isLiked}=req.body;
+   try {
     
-    try {
-        if(isLiked){
-    const [like]= await likeUpdate(Number(id));
+     const{id}=req.params;
+    const userId= req.user.id;
+    
+    // let {isLiked}=req.body;
+    //  console.log("Id",id);
+   
+    if(!req.user) return null;
+
+  const data=await  checkLike(Number(id),userId);
+// console.log("data",data);
+      
+//  console.log("data.postId===id",data.postId);
+//   console.log("data.userId===userId",data.userId);
+  if (data && data.postId === Number(id) && data.userId === userId) {
+      const [like]= await likedlt(Number(id),userId);
 
         // console.log(like);   
-     res.json({ success: true, like});
-        }else{
-            const [like]= await likedlt(Number(id));
+     res.json({ success: false,alreadyLiked: true, });
+  
+    }else{
 
-        // console.log(like);   
-     res.json({ success: false, like});
-        }
+     
+    const [like]= await likeUpdate(Number(id),userId);
+          
+        // console.log("like",like);   
+     res.json({ success: true});
+  
+
+  }
+
+
+   } catch (error) {
+    console.log(error.message);
     
-    
-    } catch (error) {
-        console.log(error.message);
-        
-    }
+   }
+//   console.log(data);
+  
+  
+}
+
+export const likesData=async(req,res)=>{
+    const id=req.user;
+    const data= await postlikedata()
+    res.json({data,id})
 }
 

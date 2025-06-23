@@ -1,7 +1,7 @@
 import express from 'express';
 import { login, logoutUser, postLogin } from '../controllers/login.js';
 import { postRegister, register } from '../controllers/register.js';
-import { homePage, userProfile } from '../controllers/user.js';
+import { getAllUsers, homePage, userProfile } from '../controllers/user.js';
 
 
 const router=express.Router();
@@ -18,6 +18,10 @@ router.route("/register")
 
 router.get("/logout",logoutUser)
 
-router.get("/profile",userProfile)
+router.get("/profile",userProfile);
+
+router.get("/allfriends",getAllUsers);
+
+
 
 export default router;

@@ -1,0 +1,13 @@
+  <%-include('./boilerplate/head.ejs') %>
+<body>
+    <%-include('./boilerplate/navbar.ejs') %>
+    <% data.forEach(el=>{ %>
+        <ul>
+            <li>
+                <strong><%= el.name.toUpperCase() %>@<%= el.id %></strong>
+                <a href="<%= el.id %>/socket?name=<%=el.name%>">message</a>
+            </li>
+        </ul>
+    <% }) %>
+</body>
+</html>

@@ -1,14 +1,16 @@
-import { getAllUserPost, getProfilesPost } from "../services/auth.post.service.js";
+import { getAllUserPost, getAllUsersdata, getProfilesPost, postlikedata } from "../services/auth.post.service.js";
 
 export const homePage=async(req,res)=>{
     try {
         const data=await getProfilesPost();
-        let a=Math.floor(Math.random()*10)+1;
-        // console.log("a",a);
+        // const postLikeData=await postlikedata()
+        // let a=Math.floor(Math.random()*10)+1;
+        // console.log("a",data);
         
+    
       
         
-       const filterData= data.slice(a>=data.length?0:a,data.length);
+       const filterData= data
        res.render("home.ejs",{filterData});
         //  console.log(filterData);
         
@@ -30,5 +32,18 @@ export const userProfile=async(req,res)=>{
     } catch (error) {
         console.log(error.message);
         
+    }
+}
+
+export const getAllUsers=async(req,res)=>{
+    try {
+        
+        if(!req.user) return res.redirect("/login");
+        const data=await getAllUsersdata(req.user.id);
+        // console.log(data);
+        res.render("allusers.ejs",{data})
+        
+    } catch (error) {
+        console.log(error.message);
     }
 }

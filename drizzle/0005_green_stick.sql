@@ -1,0 +1,1 @@
+ALTER TABLE `post_like-user` ADD `isliked` boolean DEFAULT false;

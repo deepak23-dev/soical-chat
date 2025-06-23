@@ -29,6 +29,34 @@
       "when": 1749396701672,
       "tag": "0003_kind_king_cobra",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1750097570963,
+      "tag": "0004_bouncy_talkback",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1750097954400,
+      "tag": "0005_green_stick",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1750149297378,
+      "tag": "0006_aromatic_vulture",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1750351719045,
+      "tag": "0007_nosy_starhawk",
+      "breakpoints": true
     }
   ]
 }
