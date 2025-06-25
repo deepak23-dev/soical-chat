@@ -53,6 +53,6 @@ app.use(createPost);
 app.use(socket);
 
 // 🟢 Start server
-server.listen(PORT, () => {
-    console.log(`App is listening on port ${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ App is listening on http://0.0.0.0:${PORT}`);
 });
