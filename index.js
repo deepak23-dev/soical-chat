@@ -12,49 +12,47 @@ import session from 'express-session';
 import methodOverride from 'method-override';
 import requestIp from 'request-ip';
 
-import { app,server } from './socket/server.js';
+import { app, server } from './socket/server.js'; // must be defined as http.createServer(app) inside that file
 
-
-// const app=express();
-const PORT=process.env.PORT ||8000;
-
-app.use(express.json());
-
+// 🔧 Required for __dirname with ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(import.meta.dirname,'public')));
-app.use(express.static(path.join(__dirname, 'public', 'js')));
-app.use('/uploads', express.static(path.join(import.meta.dirname,"uploads")));
+// ✅ Ensure Render uses the correct port
+const PORT = process.env.PORT || 8000;
 
-app.use(express.urlencoded({extended:true}));
-
-app.set("view engine","ejs");
-app.set("views","./views");
-app.use(methodOverride("_method"));
-
-
-
+// 🔧 Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(methodOverride("_method"));
+app.use(requestIp.mw());
 
+// 🔧 Static files
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public', 'js')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// 🔧 View engine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views")); // more robust
+
+// 🔒 Session config
 app.use(session({
-    secret:"my-secret",
-    resave:true,
-    saveUninitialized:false
+    secret: "my-secret", // Ideally, load from process.env.SECRET
+    resave: true,
+    saveUninitialized: false
 }));
 
+// 🛡️ Custom auth middleware
+app.use(verifyAuth);
 
-app.use(requestIp.mw());
-app.use(verifyAuth)
-
-//! roters
+// 🚀 Routes
 app.use(userLogin);
 app.use(createPost);
 app.use(socket);
 
-
-
-server.listen(PORT,()=>{
-    console.log(`app is listen on ${PORT}`);
-    
-})
+// 🟢 Start server
+server.listen(PORT, () => {
+    console.log(`App is listening on port ${PORT}`);
+});
